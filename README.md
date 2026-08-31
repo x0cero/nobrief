@@ -1,6 +1,6 @@
 # No Brief
 
-A website with no client, at [nobrief.0nerv.com](https://nobrief.0nerv.com).
+A website with no client, at [nobrief.0sakai.com](https://nobrief.0sakai.com).
 
 Three small machines, each one a rule that fits in a sentence, plus a short
 essay about what happens when nobody tells you what to build.

@@ -9,6 +9,6 @@
     "not_found_handling": "404-page"
   },
   "routes": [
-    { "pattern": "nobrief.0nerv.com", "custom_domain": true }
+    { "pattern": "nobrief.0sakai.com", "custom_domain": true }
   ]
 }

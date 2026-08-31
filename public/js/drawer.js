@@ -11,7 +11,7 @@
 
   const NS = 'http://www.w3.org/2000/svg';
 
-  function thumb(spec) {
+  function drawing(spec, strokeWidth) {
     const n = spec.path.split(',');
     const xs = [], ys = [];
     for (let i = 0; i < n.length; i += 2) { xs.push(+n[i]); ys.push(+n[i + 1]); }
@@ -20,8 +20,17 @@
     const pad = 0.02;
     const w = (maxX - minX) + pad * 2, h = (maxY - minY) + pad * 2;
 
-    let d = '';
-    for (let i = 0; i < xs.length; i++) d += (i ? 'L' : 'M') + xs[i].toFixed(3) + ' ' + ys[i].toFixed(3);
+    /* The stored curve is thinned to keep it small, which shows as corners
+       once you look at it large. Rounding each corner with a quadratic through
+       the midpoints puts the smoothness back without storing more. */
+    const N = xs.length;
+    const mx = (i, j) => ((xs[i] + xs[j]) / 2).toFixed(4);
+    const my = (i, j) => ((ys[i] + ys[j]) / 2).toFixed(4);
+    let d = `M${mx(N - 1, 0)} ${my(N - 1, 0)}`;
+    for (let i = 0; i < N; i++) {
+      const j = (i + 1) % N;
+      d += `Q${xs[i].toFixed(4)} ${ys[i].toFixed(4)} ${mx(i, j)} ${my(i, j)}`;
+    }
     d += 'Z';
 
     const svg = document.createElementNS(NS, 'svg');
@@ -31,20 +40,48 @@
     path.setAttribute('d', d);
     path.setAttribute('fill', 'none');
     path.setAttribute('stroke', 'currentColor');
-    path.setAttribute('stroke-width', '0.0028');
+    path.setAttribute('stroke-width', String(strokeWidth));
     path.setAttribute('stroke-linejoin', 'round');
     svg.appendChild(path);
+    return svg;
+  }
 
-    const when = new Date(spec.at);
+  const shortDate = (at) =>
+    new Date(at).toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
+
+  /* A shape with seventeen hundred points deserves better than a thumbnail. */
+  let modal = null;
+  function look(spec) {
+    if (!modal) {
+      modal = document.createElement('dialog');
+      modal.className = 'look';
+      modal.innerHTML = '<div class="look__plate"></div><div class="look__cap"></div>' +
+        '<button type="button" class="look__close" aria-label="Close">Close</button>';
+      modal.addEventListener('click', (e) => { if (e.target === modal) modal.close(); });
+      modal.querySelector('.look__close').addEventListener('click', () => modal.close());
+      document.body.appendChild(modal);
+    }
+    const plate = modal.querySelector('.look__plate');
+    plate.innerHTML = '';
+    plate.appendChild(drawing(spec, 0.0016));
+    modal.querySelector('.look__cap').innerHTML =
+      `<span>${spec.id}</span><span>${spec.n} points</span><span>${shortDate(spec.at)}</span>`;
+    modal.showModal();
+  }
+
+  function thumb(spec) {
     const li = document.createElement('li');
     li.className = 'drawer__item';
-    const figure = document.createElement('div');
-    figure.className = 'drawer__figure';
-    figure.appendChild(svg);
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'drawer__figure';
+    btn.setAttribute('aria-label', `Look at specimen ${spec.id} closely`);
+    btn.appendChild(drawing(spec, 0.0028));
+    btn.addEventListener('click', () => look(spec));
     const cap = document.createElement('div');
     cap.className = 'drawer__cap';
-    cap.innerHTML = `<span>${spec.id}</span><span>${when.toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}</span>`;
-    li.append(figure, cap);
+    cap.innerHTML = `<span>${spec.id}</span><span>${shortDate(spec.at)}</span>`;
+    li.append(btn, cap);
     return li;
   }
 

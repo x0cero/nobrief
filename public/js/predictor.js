@@ -156,6 +156,33 @@
   runEl.addEventListener('click', run);
   tempEl.addEventListener('input', () => { tempOut.textContent = parseFloat(tempEl.value).toFixed(2); });
 
+  /* The example it opens with used to be typed into the HTML by hand, which
+     went stale the moment I wrote another paragraph. Now the page hunts for
+     its own: a place in its own text where the model has the most options and
+     the least idea which one is coming. */
+  function chooseSeed() {
+    const candidates = [];
+    for (let attempt = 0; attempt < 500; attempt++) {
+      const i = 40 + Math.floor(Math.random() * (corpus.length - 41));
+      let ctx = corpus.slice(Math.max(0, i - 30), i);
+      const space = ctx.indexOf(' ');
+      if (space > 0 && ctx.length - space > 14) ctx = ctx.slice(space + 1);
+      if (ctx.includes('\n') || ctx.length < 14) continue;
+
+      const { order, counts, total } = predict(ctx);
+      if (order < 4 || counts.size < 6) continue;
+
+      let entropy = 0;
+      for (const n of counts.values()) { const p = n / total; entropy -= p * Math.log2(p); }
+      candidates.push({ ctx, score: entropy + order * 0.15 });
+    }
+    if (!candidates.length) return;
+    candidates.sort((a, b) => b.score - a.score);
+    const pick = candidates[Math.floor(Math.random() * Math.min(8, candidates.length))];
+    seedEl.value = pick.ctx;
+  }
+
   tempOut.textContent = parseFloat(tempEl.value).toFixed(2);
+  chooseSeed();
   render();
 })();

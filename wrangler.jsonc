@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nobrief",
+  "compatibility_date": "2026-08-01",
+  "account_id": "a5cf778848345609e846a5241cadf285",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "404-page"
+  },
+  "routes": [
+    { "pattern": "nobrief.0nerv.com", "custom_domain": true }
+  ]
+}

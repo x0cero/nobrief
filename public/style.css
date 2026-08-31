@@ -1,0 +1,358 @@
+/* ───────────────────────────  No Brief  ───────────────────────────
+   A monograph that happens to be running.
+   ------------------------------------------------------------------ */
+
+:root {
+  --paper:      #F2EEE5;
+  --paper-2:    #E9E3D6;
+  --paper-3:    #DFD8C8;
+  --ink:        #17150F;
+  --ink-soft:   #5D584A;
+  --ink-faint:  #8C8676;
+  --rule:       #CBC3B1;
+  --accent:     #B4442A;
+  --accent-dim: #D8A492;
+  --shadow:     rgba(23, 21, 15, .10);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:      #131210;
+    --paper-2:    #1A1815;
+    --paper-3:    #221F1A;
+    --ink:        #EDE6D6;
+    --ink-soft:   #9C9585;
+    --ink-faint:  #6E6759;
+    --rule:       #35312A;
+    --accent:     #E06A47;
+    --accent-dim: #7A3E2C;
+    --shadow:     rgba(0, 0, 0, .45);
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  font-size: clamp(17px, 1.05vw + 14px, 20px);
+  line-height: 1.62;
+  font-variant-numeric: oldstyle-nums;
+  /* the faintest possible tooth, so the ground is not a flat screen */
+  background-image:
+    radial-gradient(circle at 18% 12%, color-mix(in srgb, var(--paper-2) 70%, transparent) 0%, transparent 55%),
+    radial-gradient(circle at 84% 72%, color-mix(in srgb, var(--paper-2) 55%, transparent) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+.sheet {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 7vw, 6rem) clamp(1.15rem, 5vw, 2rem) 5rem;
+}
+
+/* ───────────────────────────  masthead  ─────────────────────────── */
+
+.masthead { text-align: center; }
+
+.masthead__rule {
+  height: 1px;
+  background: var(--rule);
+  margin: 2.1rem 0;
+}
+.masthead__rule--double {
+  height: 3px;
+  background: none;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.masthead__title {
+  font-weight: 300;
+  font-size: clamp(3.4rem, 13vw, 6.6rem);
+  line-height: .92;
+  letter-spacing: -.035em;
+  margin: 0;
+  font-optical-sizing: auto;
+}
+
+.masthead__sub {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--ink-soft);
+  font-size: 1.06rem;
+  line-height: 1.5;
+  margin: 1.15rem 0 0;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 2.4rem;
+  margin: 0;
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .68rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+.meta div { display: flex; gap: .5rem; }
+.meta dt { color: var(--ink-faint); margin: 0; }
+.meta dd { margin: 0; color: var(--ink-soft); }
+.meta__none { color: var(--accent) !important; }
+
+/* ────────────────────────────  prose  ───────────────────────────── */
+
+.prose { margin: 3.2rem 0; }
+.prose p { margin: 0 0 1.25em; text-wrap: pretty; }
+.prose p:last-child { margin-bottom: 0; }
+
+.lede {
+  font-size: 1.16em;
+  line-height: 1.55;
+}
+.lede::first-letter {
+  float: left;
+  font-size: 3.32em;
+  line-height: .82;
+  padding: .06em .09em 0 0;
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.caption {
+  font-style: italic;
+  font-size: .88em;
+  color: var(--ink-soft);
+  border-left: 1px solid var(--rule);
+  padding-left: 1rem;
+  margin-top: 1.4em !important;
+}
+
+.closing { margin-top: 4.5rem; }
+.closing .masthead__rule { margin-bottom: 3rem; }
+
+/* ────────────────────────────  plates  ──────────────────────────── */
+
+.plate { margin: 4.6rem 0; }
+
+.plate__head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: .5rem;
+  margin-bottom: 1.4rem;
+}
+.plate__num {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .66rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-top: .28rem;
+}
+.plate__title {
+  font-weight: 400;
+  font-size: 1.62rem;
+  letter-spacing: -.015em;
+  margin: 0;
+  flex: 1;
+}
+
+.plate__frame {
+  position: relative;
+  border: 1px solid var(--rule);
+  background: var(--paper-2);
+  box-shadow: 0 1px 0 var(--shadow), 0 14px 34px -26px var(--shadow);
+  overflow: hidden;
+}
+.plate__frame--pale { background: var(--paper-2); }
+.plate__frame canvas { display: block; width: 100%; height: auto; }
+
+.plate__hud {
+  position: absolute;
+  right: .5rem;
+  top: .4rem;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .62rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  background: color-mix(in srgb, var(--paper-2) 82%, transparent);
+  padding: .1rem .35rem;
+  pointer-events: none;
+}
+
+.plate__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .6rem 1rem;
+  margin-top: .8rem;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .72rem;
+}
+
+.plate__status {
+  color: var(--ink-faint);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-size: .64rem;
+}
+
+.plate__note { margin: 1.9rem 0 0; }
+.plate__note p { font-size: .97em; }
+
+/* ────────────────────────────  controls  ────────────────────────── */
+
+.btn {
+  font: inherit;
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--ink-faint);
+  padding: .38rem .8rem;
+  cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn:active { transform: translateY(1px); }
+
+.chip {
+  font: inherit;
+  font-size: .7rem;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 1px solid var(--rule);
+  padding: .25rem .5rem;
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+}
+.chip:hover { color: var(--accent); border-color: var(--accent-dim); }
+.chip[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); }
+.presets { display: inline-flex; gap: .3rem; }
+
+.field { display: inline-flex; align-items: center; gap: .5rem; color: var(--ink-faint); }
+.field span { letter-spacing: .1em; text-transform: uppercase; font-size: .64rem; }
+.field input {
+  font: inherit;
+  font-size: .78rem;
+  width: 4.6rem;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  padding: .2rem .1rem;
+}
+.field input:focus { outline: none; border-bottom-color: var(--accent); }
+
+.check { display: inline-flex; align-items: center; gap: .4rem; color: var(--ink-faint); }
+.check span { letter-spacing: .08em; font-size: .68rem; }
+.check input { accent-color: var(--accent); }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ──────────────────────────  the predictor  ─────────────────────── */
+
+.pred {
+  padding: 1.3rem clamp(.9rem, 3vw, 1.5rem) 1.4rem;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .78rem;
+}
+
+.pred__label {
+  display: block;
+  font-size: .62rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: .45rem;
+}
+
+.pred__seed {
+  font: inherit;
+  font-size: .86rem;
+  width: 100%;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: .5rem .6rem;
+}
+.pred__seed:focus { outline: none; border-color: var(--accent); }
+
+.pred__matched {
+  font-size: .64rem;
+  letter-spacing: .06em;
+  color: var(--ink-faint);
+  margin: .7rem 0 1rem;
+}
+.pred__matched b { color: var(--accent); font-weight: 500; }
+.pred__ctx { white-space: pre; }
+#pred-ctx-dim { color: var(--ink-faint); opacity: .55; }
+#pred-ctx-hit { color: var(--ink); background: color-mix(in srgb, var(--accent) 16%, transparent); }
+
+.bars { list-style: none; margin: 0; padding: 0; min-height: 11.4rem; }
+.bars-label {
+  display: block;
+  font-size: .62rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: .55rem;
+}
+.bars li {
+  display: grid;
+  grid-template-columns: 1.7rem 1fr 3rem;
+  align-items: center;
+  gap: .5rem;
+  height: 1.42rem;
+}
+.bars .glyph { color: var(--ink); font-size: .8rem; text-align: center; }
+.bars .track { position: relative; height: .58rem; background: color-mix(in srgb, var(--rule) 45%, transparent); }
+.bars .fill { position: absolute; inset: 0 auto 0 0; background: var(--accent); transition: width .12s linear; }
+.bars li:nth-child(n+4) .fill { background: var(--accent-dim); }
+.bars .pct { font-size: .62rem; color: var(--ink-faint); text-align: right; }
+
+.pred__gen { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem 1.1rem; margin-top: 1rem; }
+.pred__temp { display: inline-flex; align-items: center; gap: .5rem; color: var(--ink-faint); font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; }
+.pred__temp input { accent-color: var(--accent); width: 7rem; }
+.pred__temp output { color: var(--ink-soft); font-size: .68rem; letter-spacing: 0; }
+
+.pred__out {
+  font: inherit;
+  font-size: .78rem;
+  line-height: 1.62;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 1rem 0 0;
+  padding: .85rem .9rem;
+  min-height: 5.2rem;
+  color: var(--ink-soft);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+}
+.pred__out:empty::before { content: "…"; color: var(--ink-faint); }
+
+/* ──────────────────────────  colophon  ──────────────────────────── */
+
+.colophon {
+  margin-top: 4.5rem;
+  font-size: .8rem;
+  line-height: 1.6;
+  color: var(--ink-faint);
+  text-align: center;
+}
+.colophon .masthead__rule { margin-bottom: 2rem; }
+.colophon p { margin: 0 0 .6em; }
+.mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: .92em; color: var(--ink-soft); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

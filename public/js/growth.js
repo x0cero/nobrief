@@ -190,11 +190,26 @@
     } else if (!done) {
       done = true;
       if (statusEl) statusEl.textContent = 'settled';
+      canvas.dispatchEvent(new CustomEvent('growth:settled', { bubbles: true }));
     }
     draw();
   }
 
-  function restart() { resize(); seed(); draw(); }
+  function restart() { resize(); seed(); draw(); canvas.dispatchEvent(new CustomEvent('growth:restarted', { bubbles: true })); }
+
+  /* The drawing normalised by frame width, so a shape kept on a phone and a
+     shape kept on a desktop are the same shape. */
+  function normalizedPath() {
+    const stride = Math.max(1, Math.ceil(pts.length / 880));
+    const out = [];
+    for (let i = 0; i < pts.length; i += stride) {
+      out.push((pts[i].x / W).toFixed(3), (pts[i].y / W).toFixed(3));
+    }
+    return out.join(',');
+  }
+
+  window.NoBrief = window.NoBrief || {};
+  window.NoBrief.growth = { normalizedPath, settled: () => done, restart };
 
   readInk();
   resize();
@@ -212,7 +227,9 @@
     /* fast forward to a finished drawing, no animation */
     for (let i = 0; i < 2200 && pts.length < MAX_NODES; i++) { step(); inject(2); if (i % 2 === 0) subdivide(); }
     draw();
+    done = true;
     if (statusEl) statusEl.textContent = 'settled';
+    canvas.dispatchEvent(new CustomEvent('growth:settled', { bubbles: true }));
   }
 
   restartEl && restartEl.addEventListener('click', restart);

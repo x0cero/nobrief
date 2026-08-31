@@ -1,13 +1,24 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "nobrief",
+  "main": "src/index.js",
   "compatibility_date": "2026-08-01",
   "account_id": "a5cf778848345609e846a5241cadf285",
   "workers_dev": true,
+  "observability": { "enabled": true },
   "assets": {
     "directory": "./public",
-    "not_found_handling": "404-page"
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
   },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "nobrief",
+      "database_id": "3fc22c72-4676-4d01-b56e-e119e84da38f"
+    }
+  ],
   "routes": [
     { "pattern": "nobrief.0sakai.com", "custom_domain": true }
   ]

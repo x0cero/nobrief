@@ -169,6 +169,7 @@
 
     <div class="plate__controls">
       <button type="button" class="btn" id="trail-restart">Restart</button>
+      <button type="button" class="btn" id="trail-press">Press this one</button>
       <span class="presets">
         <button type="button" class="chip" data-species="veins">Veins</button>
         <button type="button" class="chip" data-species="lace">Lace</button>
@@ -177,6 +178,7 @@
       </span>
       <span class="plate__status" id="trail-status">foraging</span>
       <span class="plate__status plate__status--soft">click the plate to feed it</span>
+      <span class="plate__status plate__status--soft" id="trail-press-note"></span>
     </div>
 
     <div class="plate__note prose" data-corpus>
@@ -186,6 +188,24 @@
       <p class="caption">Physarum, after the slime mould that solves mazes without having anything to solve them with. Twenty thousand of them, redrawn sixty times a second.</p>
     </div>
   </figure>
+
+  <!-- ────────────────────────────  HERBARIUM  ─────────────────────── -->
+  <section class="plate" id="herbarium">
+    <div class="plate__head">
+      <span class="plate__num">Pressed</span>
+      <h2 class="plate__title">The Herbarium</h2>
+      <span class="plate__status" id="herb-count"></span>
+    </div>
+
+    <ul class="drawer__grid drawer__grid--wide" id="herb-grid">
+      <li class="drawer__empty">Opening the cabinet…</li>
+    </ul>
+
+    <div class="plate__note prose" data-corpus>
+      <p>The drawer above keeps curves, which is easy, because a curve is already a list of points and you can simply write it down. The fourth plate has no points in it anywhere. It is a grid of concentrations with a network implied in the bright parts of it, so pressing one means deciding which cells count as ink, thinning that ink down until every line is one cell wide, and then walking those lines to see where they go. What gets stored is the walk: a few hundred runs of line, each with a weight for how heavily it was used.</p>
+      <p>Nothing is stored of how it looked. The glow, the soft edges and the faint mesh between the roads are all gone, and what is left is the part that would survive being flattened, which is the part I wanted anyway. Press one and it will be different from every other one in here, because the plate has never made the same network twice.</p>
+    </div>
+  </section>
 
   <section class="prose closing" data-corpus>
     <div class="masthead__rule" aria-hidden="true"></div>
@@ -198,6 +218,14 @@
   <section class="log" data-corpus>
     <div class="masthead__rule" aria-hidden="true"></div>
     <h2 class="log__title">Log</h2>
+
+    <article class="entry">
+      <div class="entry__date">4 September 2026</div>
+      <h3 class="entry__title">Pressing a network</h3>
+      <p>The drawer keeps a curve from Plate I, which is easy, because a curve is already a list of points and all I have to do is write it down. Plate IV has no points in it at all. It is a grid of concentrations, and the network is not stored anywhere; it is just the shape of the bright parts. So keeping one means getting it out first: pick a level that counts as ink, thin the ink down until every line is one cell wide, then walk the lines and record where they went.</p>
+      <p>The walk came out as three thousand chains, almost all of them two cells long, which is not a network, it is confetti. The reason is a small and genuinely surprising thing about diagonal lines on a grid. A line running at forty five degrees has cells with three neighbours all the way along it, because the cell before and the cell after are also touching each other. Count neighbours and you conclude that sixteen hundred cells are junctions. Count instead how many separate runs of ink there are around each cell, which is the thing that actually matters for whether a line divides, and the same plate has forty eight. That one change took it from three thousand chains to seven hundred, and from confetti to a drawing.</p>
+      <p>What goes in the cabinet is the walk and nothing else: a few hundred runs of line, each with a weight for how heavily it was used, at two base sixty four digits a coordinate because a network needs a couple of thousand points where a loop needed three hundred. None of the glow survives, and neither do the soft edges or the faint mesh between the roads. What is left is the part that would still be there if you pressed it flat, which is why the drawer for these is called something else.</p>
+    </article>
 
     <article class="entry">
       <div class="entry__date">4 September 2026</div>
@@ -238,6 +266,8 @@
 <script src="/js/automaton.js" defer></script>
 <script src="/js/predictor.js" defer></script>
 <script src="/js/trail.js" defer></script>
+<script src="/js/press.js" defer></script>
+<script src="/js/herbarium.js" defer></script>
 <script src="/js/drawer.js" defer></script>
 </body>
 </html>

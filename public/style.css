@@ -506,3 +506,12 @@ button.drawer__figure {
   touch-action: none;
   image-rendering: auto;
 }
+
+/* ──────────────────────────  the herbarium  ─────────────────────── */
+
+/* A network is a landscape, not a specimen in a jar, so its sheets are wider
+   than the drawer's square tiles and there are fewer of them to a row. */
+.drawer__grid--wide { grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); }
+.drawer__figure--wide { aspect-ratio: 1 / 0.62; padding: .35rem; }
+
+.look__plate--wide { aspect-ratio: 1 / 0.62; }

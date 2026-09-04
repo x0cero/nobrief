@@ -299,7 +299,13 @@
   }
 
   window.NoBrief = window.NoBrief || {};
-  window.NoBrief.trail = { restart, setSpecies, advance };
+  window.NoBrief.trail = {
+    restart, setSpecies, advance,
+    species: () => key,
+    /* The live map, handed over as it is. Whoever wants a drawing out of this
+       can do their own work; the plate's job is to keep running. */
+    snapshot: () => ({ trail, SW, SH, species: key, label: sp.label }),
+  };
 
   buildLut();
   resize();

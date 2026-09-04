@@ -496,3 +496,13 @@ button.drawer__figure {
   cursor: pointer;
 }
 .look__close:hover { color: var(--accent); border-color: var(--accent-dim); }
+
+/* ────────────────────────────  plate iv  ────────────────────────── */
+
+/* The trail plate is simulated at a fixed grid size and scaled up to the
+   frame, so the browser is asked not to sharpen it back into pixels. */
+.canvas--feed {
+  cursor: crosshair;
+  touch-action: none;
+  image-rendering: auto;
+}

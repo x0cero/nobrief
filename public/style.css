@@ -503,7 +503,8 @@ button.drawer__figure {
    frame, so the browser is asked not to sharpen it back into pixels. */
 .canvas--feed {
   cursor: crosshair;
-  touch-action: none;
+  /* pan-y, not none: a finger dragged up the plate has to scroll the page. */
+  touch-action: pan-y;
   image-rendering: auto;
 }
 

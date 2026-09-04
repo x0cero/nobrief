@@ -108,6 +108,15 @@
   randomBox && randomBox.addEventListener('change', start);
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { readInk(); start(); });
 
-  let rt;
-  window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(start, 220); });
+  /* Width only: see the note in growth.js about the address bar. */
+  let rt, lastW = Math.round(canvas.getBoundingClientRect().width);
+  window.addEventListener('resize', () => {
+    clearTimeout(rt);
+    rt = setTimeout(() => {
+      const w = Math.round(canvas.getBoundingClientRect().width);
+      if (w === lastW) return;
+      lastW = w;
+      start();
+    }, 220);
+  });
 })();

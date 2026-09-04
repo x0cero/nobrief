@@ -25,7 +25,8 @@
   };
   const DEG = Math.PI / 180;
 
-  const MAX_W = 840;      // simulation width in cells; the element is scaled up from this
+  const MIN_W = 480;      // simulation width in cells, floor and ceiling; the
+  const MAX_W = 840;      // element is scaled from whatever lands in between
   const RATIO = 0.62;
 
   let SW = 0, SH = 0, N = 0;
@@ -71,7 +72,12 @@
 
   function resize() {
     const rect = canvas.getBoundingClientRect();
-    SW = Math.max(320, Math.min(MAX_W, Math.round(rect.width) || MAX_W));
+    /* A phone's plate is 350 css pixels wide, and a 350 cell sheet shows this
+       structure at roughly twice the magnification of a desktop one, which
+       reads as four fat roads and nothing else. The floor keeps the picture the
+       same picture on a small screen, and the extra cells are free there
+       because the sheet is smaller anyway. */
+    SW = Math.max(MIN_W, Math.min(MAX_W, Math.round(rect.width) || MAX_W));
     SH = Math.round(SW * RATIO);
     canvas.width = SW;
     canvas.height = SH;
@@ -239,17 +245,47 @@
     }
   }
 
-  let feeding = false;
+  /* With a mouse, holding the button down draws food along wherever you go.
+     A finger cannot do that, because a finger dragged across the plate is how
+     you scroll the page, and a plate that swallows the scroll is a plate you
+     get stuck in. So on touch the drag belongs to the page and only a tap,
+     short and staying put, counts as feeding. */
+  let feeding = false, touch = null, drift = 0;
+
   canvas.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'touch') {
+      touch = { x: e.clientX, y: e.clientY, at: performance.now() };
+      drift = 0;
+      return;
+    }
     feeding = true;
     canvas.setPointerCapture(e.pointerId);
     feed(e.clientX, e.clientY);
     if (!visible) { advance(90); }            // reduced motion: still responds
     e.preventDefault();
   });
-  canvas.addEventListener('pointermove', (e) => { if (feeding) feed(e.clientX, e.clientY); });
-  canvas.addEventListener('pointerup', () => { feeding = false; });
-  canvas.addEventListener('pointercancel', () => { feeding = false; });
+
+  canvas.addEventListener('pointermove', (e) => {
+    if (e.pointerType === 'touch') {
+      if (touch) drift = Math.max(drift, Math.hypot(e.clientX - touch.x, e.clientY - touch.y));
+      return;
+    }
+    if (feeding) feed(e.clientX, e.clientY);
+  });
+
+  canvas.addEventListener('pointerup', (e) => {
+    if (e.pointerType === 'touch') {
+      if (touch && drift < 12 && performance.now() - touch.at < 600) {
+        feed(e.clientX, e.clientY);
+        if (!visible) { advance(90); }
+      }
+      touch = null;
+      return;
+    }
+    feeding = false;
+  });
+
+  canvas.addEventListener('pointercancel', () => { feeding = false; touch = null; });
 
   /* ── running ────────────────────────────────────────────────────── */
 
@@ -331,10 +367,17 @@
   restartEl && restartEl.addEventListener('click', () => { restart(); if (reduce.matches) settle(); });
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { buildLut(); draw(); });
 
-  let rt;
+  /* Width only: see the note in growth.js about the address bar. */
+  let rt, lastW = Math.round(canvas.getBoundingClientRect().width);
   window.addEventListener('resize', () => {
     clearTimeout(rt);
-    rt = setTimeout(() => { restart(); if (reduce.matches) settle(); }, 220);
+    rt = setTimeout(() => {
+      const w = Math.round(canvas.getBoundingClientRect().width);
+      if (w === lastW) return;
+      lastW = w;
+      restart();
+      if (reduce.matches) settle();
+    }, 220);
   });
 
   chips.forEach(c => c.setAttribute('aria-pressed', String(c.dataset.species === key)));

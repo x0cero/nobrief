@@ -235,9 +235,17 @@
   restartEl && restartEl.addEventListener('click', restart);
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { readInk(); draw(); });
 
-  let rt;
+  /* On a phone the address bar slides away as you scroll and the browser calls
+     that a resize, so listening to resize at all means the plate starts over
+     every time you scroll past it. Only a change in width matters here. */
+  let rt, lastW = Math.round(canvas.getBoundingClientRect().width);
   window.addEventListener('resize', () => {
     clearTimeout(rt);
-    rt = setTimeout(restart, 220);
+    rt = setTimeout(() => {
+      const w = Math.round(canvas.getBoundingClientRect().width);
+      if (w === lastW) return;
+      lastW = w;
+      restart();
+    }, 220);
   });
 })();

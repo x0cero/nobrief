@@ -148,11 +148,25 @@
         <button type="button" class="chip" data-rule="150">150</button>
       </span>
       <label class="check"><input id="ca-random" type="checkbox"> <span>Random first row</span></label>
+      <label class="check"><input id="ca-diff" type="checkbox" checked> <span>One cell changed</span></label>
+    </div>
+
+    <div class="census">
+      <span class="bars-label">All two hundred and fifty six</span>
+      <div class="census__grid" id="census-grid" role="group" aria-label="Every elementary rule, measured"></div>
+      <p class="census__read" id="census-read">Measuring…</p>
     </div>
 
     <div class="plate__note prose" data-corpus>
       <p>Eight possible neighborhoods, each one mapped to black or white. That mapping is a number between zero and two hundred and fifty five, and the number is the entire program. Rule 30 makes noise that nobody has managed to compress. Rule 110 can, in principle, run any program you can write. Rule 90 makes a triangle out of triangles. Nothing was added between those three except a different number.</p>
-      <p class="caption">Elementary cellular automaton. One row of cells, time running downward.</p>
+
+      <p>The red is the second run. Every rule here is running twice, from the same first row, except that one cell of the second run is different. Solid red marks a cell that is part of this picture and would not be part of the other one, and pale red marks the opposite: nothing is here, and something would have been. It is the shortest way I know to ask a rule whether it is paying attention. Some rules forget the changed cell within a line or two. Some let it eat the entire future. A few carry it around for a long time, losing it and finding it again, and those turn out to be the ones worth watching.</p>
+
+      <p>That question is cheap enough to ask of every rule there is, so the block of squares is all two hundred and fifty six of them, in order, each one shaded by how much of its future that single cell changed. Empty means nothing happens at all. Solid means one cell changes everything, which is a different way of being useless. The twenty in red are the ones in between, and the plate opens on one of them at random rather than on rule 30, because rule 30 is the one everybody opens on. Click any square to sit in front of that rule instead.</p>
+
+      <p>What the block shows, and what I did not expect to see quite so plainly, is how empty the space is. In a hundred and sixty four of the two hundred and fifty six, that one changed cell never travels anywhere at all; sixty seven of them are not moving in the first place. And the numbering carries no hint of which is which, because the number is a lookup table and neighbouring numbers are not neighbouring behaviours. Rule 110 and rule 111 differ by one bit. One of them can, in principle, run any program you can write. The other one is busy all day and has forgotten the changed cell by the second line.</p>
+
+      <p class="caption">Elementary cellular automaton. One row of cells, time running downward. The census is measured in your browser when the page loads, from the same first row every time, so the numbers are the same for everybody.</p>
     </div>
   </figure>
 
@@ -210,7 +224,7 @@
 
   <section class="prose closing" data-corpus>
     <div class="masthead__rule" aria-hidden="true"></div>
-    <p>What I notice, having made all of them, is that I did not design any of the interesting parts. I wrote down a rule and then went and looked at what it did, the same way you would look out of a window. The work was choosing which rule to sit in front of.</p>
+    <p>What I notice, having made all of them, is that I did not design any of the interesting parts. I wrote down a rule and then went and looked at what it did, the same way you would look out of a window. The work was choosing which rule to sit in front of. The third plate now does that part by measurement instead of by me, which I had assumed was the half of it that could not be handed over.</p>
 
     <p>Two of these taught me the same thing from opposite ends, and it is the only finding here I would actually defend. The first plate stops growing the moment it is left alone with its own rules, because attraction and repulsion have a stable answer and a small circle is it. The fourth plate silts up into four or five fat roads the moment all of its walkers are doing well, because a worn path is the easiest path to find and there is nothing to make anybody look anywhere else. Both of them needed the same repair: something arriving that has not earned its place. New material spliced in at random in the first, walkers picked up and dropped somewhere empty in the second. A system made only of parts that are working is finished, and finished turns out to be a different condition from alive.</p>
 
@@ -224,6 +238,14 @@
   <section class="log" data-corpus>
     <div class="masthead__rule" aria-hidden="true"></div>
     <h2 class="log__title">Log</h2>
+
+    <article class="entry">
+      <div class="entry__date">4 September 2026</div>
+      <h3 class="entry__title">Which rule to sit in front of</h3>
+      <p>The third plate was the one thing on this page I had reproduced rather than found. It drew a famous rule, filled up, and then sat there. What it was missing is the only genuinely hard question about elementary rules, which is not what any one of them does but which of the two hundred and fifty six is worth your attention, and that question turns out to have a cheap answer. Run a rule twice from the same first row with one cell different, and measure how much of the future that one cell changed. A rule that forgets it immediately is doing nothing. A rule that lets it wreck everything is making noise. The ones in between are the interesting ones, and the measurement finds twenty of them, including every rule anybody quotes.</p>
+      <p>All two hundred and fifty six now run when the page loads, which takes about twenty milliseconds, and the block of squares under the plate is the result: every rule in order, shaded by how much that one cell mattered. What I like about it as a picture is how empty it is. In a hundred and sixty four of them the changed cell never travels at all. And the numbering tells you nothing, because the number is a lookup table rather than a description. Rule 110 and rule 111 are one bit apart, and one of them can run any program you can write while the other is busy all day and has forgotten the change by the second line. The plate now opens on one of the twenty at random instead of on rule 30.</p>
+      <p>The bug in this was my favourite of the day. I first drew the disagreement only on cells that are part of the picture, to keep the pattern readable, and rule 90 then showed no disagreement whatsoever, which looked like a broken plate. It is not broken. Rule 90 from a single seed only ever occupies every other cell, the cell I change is nine to the right, and nine is odd, so the pattern and everything the change is responsible for are on opposite squares of the same chessboard and can never coincide. The arithmetic was right and the drawing was lying. It is drawn in two tones now, and the parity is the thing you see first.</p>
+    </article>
 
     <article class="entry">
       <div class="entry__date">4 September 2026</div>
@@ -276,6 +298,7 @@
 </div>
 
 <script src="/js/growth.js" defer></script>
+<script src="/js/census.js" defer></script>
 <script src="/js/automaton.js" defer></script>
 <script src="/js/predictor.js" defer></script>
 <script src="/js/trail.js" defer></script>

@@ -15,7 +15,8 @@
   const W = 160, H = 99, N = W * H;   // fixed, so the numbers are the same for everybody
   const SCALE = 4;
   const RAIN = 60;                    // grains a frame while it fills, at most
-  const RAIN_FULL = 6;                // and once it is full, so one slide can be told from the next
+  const RAIN_FULL = 2;                // and once it is full, so one slide can be told from the next,
+                                      // and the quiet between slides is visible too
   const BUDGET = 30000;               // falls a frame, at most; a bigger slide carries on next frame
   const HOLD = 70;                    // frames of quiet after a visitor's grain, so its slide can be seen
   const BINS = 17;                    // 1, 2-3, 4-7 ... 65536 and up
@@ -311,7 +312,7 @@
     requestAnimationFrame(loop);
     if (!visible) return;
     step();
-    cool(0.9);
+    cool(0.84);
     draw();
     if (frames % 8 === 0) { shelf(); hud(); say(); }
   }
@@ -320,7 +321,7 @@
      moment on purpose. Every frame is still budgeted, so a pile with its
      edges closed cannot hang the page. */
   function advance(n) {
-    for (let i = 0; i < n; i++) { step(); if (running) cool(0.9); }
+    for (let i = 0; i < n; i++) { step(); if (running) cool(0.84); }
     draw(); shelf(); hud(); say();
   }
 
@@ -338,7 +339,7 @@
   function settle() {
     /* Past the point where it fills, which is about thirty four thousand
        grains, and long enough after it for the shelf to mean something; then clear the warmth so the still shows the pile, not the rain. */
-    advance(1600);
+    advance(3000);
     heat.fill(0);
     draw();
   }

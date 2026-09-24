@@ -574,3 +574,51 @@ button.drawer__figure {
   padding-left: 1rem;
 }
 .cost__word { cursor: help; }
+
+/* ────────────────────────────  the pile  ─────────────────────────── */
+
+/* Each square of the pile is four pixels of canvas; scaled any further it
+   should stay a square, not blur into its neighbours. */
+.canvas--pixels { image-rendering: pixelated; }
+
+.shelf-wrap { margin-top: 1.5rem; }
+
+.shelf {
+  display: grid;
+  grid-template-columns: repeat(17, 1fr);
+  gap: 3px;
+  align-items: end;
+  height: 7.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.shelf__bar { height: 100%; display: flex; align-items: flex-end; }
+.shelf__bar i {
+  display: block;
+  width: 100%;
+  height: 0;
+  background: var(--ink-soft);
+  transition: height .2s linear;
+}
+.shelf__bar.is-yours i { background: var(--accent); }
+
+.shelf__axis {
+  display: grid;
+  grid-template-columns: repeat(17, 1fr);
+  gap: 3px;
+  margin-top: .3rem;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .58rem;
+  color: var(--ink-faint);
+}
+.shelf__axis span { text-align: left; white-space: nowrap; }
+
+.shelf__unit {
+  display: block;
+  margin-top: .25rem;
+  font-size: .72rem;
+  font-style: italic;
+  color: var(--ink-faint);
+}
+
+.cost__read--yours { margin-top: -.6rem; color: var(--accent); min-height: 1.2em; }

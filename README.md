@@ -1,5 +1,7 @@
 # No Brief
 
+[![Discord](https://img.shields.io/badge/Discord-join-5865F2?logo=discord&logoColor=white)](https://discord.gg/KMWnFJ5tre)
+
 A website with no client, at [nobrief.0sakai.com](https://nobrief.0sakai.com).
 
 Three small machines, each one a rule that fits in a sentence, plus a short

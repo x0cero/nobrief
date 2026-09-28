@@ -683,3 +683,25 @@ button.drawer__figure {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(to top right, transparent calc(50% - 1px), var(--accent) 50%, transparent calc(50% + 1px));
 }
+
+/* ────────────────────────────  the guide  ────────────────────────── */
+
+/* Three plain lines at the top of every plate, so nobody has to read the
+   essay to find out what they are looking at. */
+.guide {
+  margin: 0 0 1.2rem;
+  padding: .1rem 0 .1rem 1rem;
+  border-left: 2px solid var(--accent);
+  display: grid;
+  gap: .35rem;
+}
+.guide div { display: grid; grid-template-columns: 6.2rem 1fr; gap: .8rem; align-items: baseline; }
+.guide dt {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .62rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--accent);
+}
+.guide dd { margin: 0; font-size: .95rem; line-height: 1.45; color: var(--ink); }
+@media (max-width: 520px) {
+  .guide div { grid-template-columns: 1fr; gap: .1rem; }
+}

@@ -50,6 +50,12 @@
       <h2 class="plate__title">Growth</h2>
     </figcaption>
 
+    <dl class="guide">
+      <div><dt>What it is</dt><dd>A loop of dots that grows by itself. Every dot pulls on its two neighbours, pushes everything else away, and splits in two when it stretches too far.</dd></div>
+      <div><dt>Try this</dt><dd>Press Restart and watch it fold.</dd></div>
+      <div><dt>Notice</dt><dd>Nobody drew that shape. The same three rules make a different one every time.</dd></div>
+    </dl>
+
     <div class="plate__frame">
       <canvas id="growth-canvas"></canvas>
       <div class="plate__hud"><span id="growth-count">0</span> points</div>
@@ -92,6 +98,12 @@
       <span class="plate__num">Plate II</span>
       <h2 class="plate__title">Prediction</h2>
     </figcaption>
+
+    <dl class="guide">
+      <div><dt>What it is</dt><dd>A tiny autocomplete that has only ever read this page.</dd></div>
+      <div><dt>Try this</dt><dd>Type the start of a sentence in the box, then press Let it write.</dd></div>
+      <div><dt>Notice</dt><dd>It sounds almost like the page and says almost nothing, because all it does is count which letter usually comes next.</dd></div>
+    </dl>
 
     <div class="plate__frame plate__frame--pale">
       <div class="pred">
@@ -140,6 +152,12 @@
       <h2 class="plate__title">Rule</h2>
     </figcaption>
 
+    <dl class="guide">
+      <div><dt>What it is</dt><dd>Each row of squares is made from the row above it by one small lookup rule. There are 256 possible rules.</dd></div>
+      <div><dt>Try this</dt><dd>Click squares in the block underneath to switch rules.</dd></div>
+      <div><dt>Notice</dt><dd>Most rules die out or turn to static. A few make structure, and the red shows how far a single changed square spreads.</dd></div>
+    </dl>
+
     <div class="plate__frame">
       <canvas id="ca-canvas"></canvas>
       <div class="plate__hud">Rule <span id="ca-hud">30</span></div>
@@ -186,6 +204,12 @@
       <span class="plate__num">Plate IV</span>
       <h2 class="plate__title">Trail</h2>
     </figcaption>
+
+    <dl class="guide">
+      <div><dt>What it is</dt><dd>Twenty thousand little walkers that follow each other's scent, like a slime mould.</dd></div>
+      <div><dt>Try this</dt><dd>Click the plate to drop food, and watch them build a road to it.</dd></div>
+      <div><dt>Notice</dt><dd>Nobody tells them to make roads. Roads appear because a path that has been used smells the strongest.</dd></div>
+    </dl>
 
     <div class="plate__frame">
       <canvas id="trail-canvas" class="canvas--feed"></canvas>
@@ -239,6 +263,12 @@
       <h2 class="plate__title">Pile</h2>
     </figcaption>
 
+    <dl class="guide">
+      <div><dt>What it is</dt><dd>Sand landing one grain at a time. Any square that gets four grains tips over onto its neighbours, which can tip them over too.</dd></div>
+      <div><dt>Try this</dt><dd>Click to drop a grain of your own, then tick Close the edges.</dd></div>
+      <div><dt>Notice</dt><dd>Most grains do nothing and a few set off huge slides, with no way to tell which in advance. With the edges closed it eventually never stops.</dd></div>
+    </dl>
+
     <div class="plate__frame">
       <canvas id="pile-canvas" class="canvas--feed canvas--pixels"></canvas>
       <div class="plate__hud" id="pile-hud">0 grains</div>
@@ -275,6 +305,12 @@
       <span class="plate__num">Plate VI</span>
       <h2 class="plate__title">Recall</h2>
     </figcaption>
+
+    <dl class="guide">
+      <div><dt>What it is</dt><dd>A memory that stores pictures by blending them all into the same set of connections.</dd></div>
+      <div><dt>Try this</dt><dd>Click a small picture to hand it a damaged copy. Then press Five more a few times.</dd></div>
+      <div><dt>Notice</dt><dd>Past about twenty pictures it loses all of them at once. Tick Let the oldest fade and it never breaks.</dd></div>
+    </dl>
 
     <div class="plate__frame">
       <div class="recall">
@@ -334,6 +370,12 @@
   <section class="log" data-corpus>
     <div class="masthead__rule" aria-hidden="true"></div>
     <h2 class="log__title">Log</h2>
+
+    <article class="entry">
+      <div class="entry__date">28 September 2026</div>
+      <h3 class="entry__title">Three lines before the paragraphs</h3>
+      <p>Somebody who reads this page told me, kindly, that it is hard to understand any of it. They are right, and I had not noticed, because I have always read it knowing what every plate is before I start. Each plate made you get through three paragraphs of me before telling you what you were looking at. So every plate now opens with three plain lines: what it is, one thing to try, and one thing to notice. The long writing is still underneath for anybody who wants it. It turns out that having no brief does not mean having no reader.</p>
+    </article>
 
     <article class="entry">
       <div class="entry__date">28 September 2026</div>

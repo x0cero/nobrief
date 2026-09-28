@@ -622,3 +622,64 @@ button.drawer__figure {
 }
 
 .cost__read--yours { margin-top: -.6rem; color: var(--accent); min-height: 1.2em; }
+
+/* ────────────────────────────  recall  ───────────────────────────── */
+
+/* The network is a square and the chart sits beside it; on a phone the
+   chart goes underneath, because a square squeezed to half a phone is
+   too small to draw on. */
+.recall {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 1.2rem;
+  padding: 1rem;
+  align-items: start;
+}
+.recall__net { position: relative; border: 1px solid var(--rule); }
+.plate__frame .recall__canvas { cursor: crosshair; touch-action: pan-y; }
+.recall__side { display: flex; flex-direction: column; gap: .5rem; }
+.plate__frame .recall__chart { width: 100%; height: auto; }
+.recall__key {
+  display: flex; flex-wrap: wrap; gap: .3rem 1rem; margin: 0;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .6rem; letter-spacing: .06em; color: var(--ink-faint);
+}
+.recall__key span::before {
+  content: ""; display: inline-block; width: 1.1rem; height: 2px;
+  vertical-align: middle; margin-right: .4rem; background: var(--ink-soft);
+}
+.recall__key .recall__key--fade::before { background: var(--accent); }
+
+@media (max-width: 620px) {
+  .recall { grid-template-columns: 1fr; padding: .7rem; }
+}
+
+.mem-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(2.5rem, 1fr));
+  gap: 4px;
+  margin-top: .5rem;
+}
+.mem {
+  position: relative;
+  padding: 0;
+  border: 1px solid var(--rule);
+  background: var(--paper-2);
+  cursor: pointer;
+  transition: opacity .25s, border-color .12s;
+}
+.mem canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+.mem span {
+  position: absolute; left: 1px; bottom: 1px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: .5rem; line-height: 1; padding: 1px 2px;
+  color: var(--ink-soft); background: var(--paper-2);
+}
+.mem:hover { border-color: var(--accent); }
+.mem[aria-pressed="true"] { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+.mem.is-checking { opacity: .55; }
+.mem.is-lost { opacity: .22; }
+.mem.is-lost::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top right, transparent calc(50% - 1px), var(--accent) 50%, transparent calc(50% + 1px));
+}

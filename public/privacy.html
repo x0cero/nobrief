@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy — No Brief</title>
+<meta name="description" content="What No Brief actually stores: a daily-rotating hashed IP for rate limiting, and the shapes visitors choose to keep.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..700;1,6..72,200..600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="sheet">
+
+  <header class="masthead">
+    <div class="masthead__rule" aria-hidden="true"></div>
+    <h1 class="masthead__title">Privacy</h1>
+    <p class="masthead__sub">What this page actually stores,<br>and nothing it doesn't.</p>
+    <div class="masthead__rule masthead__rule--double" aria-hidden="true"></div>
+  </header>
+
+  <section class="prose">
+    <p class="lede">No Brief has no accounts, no analytics, and no tracking script. The only server-side part is a small Worker that lets you keep a shape The Drawer or The Herbarium grew, and here is everything it stores to do that.</p>
+
+    <p><strong>Rate-limit key.</strong> Keeping a shape is limited to 5 an hour and 25 a day per visitor, so nobody can flood the gallery. To count that, the Worker hashes today's date plus your IP address together (SHA-256, truncated) into one identifier. That identifier changes on its own every day, is never written down as your actual address, and can't be reversed back into one. It's stored with a timestamp only long enough to count against those limits, and rows older than 24 hours are deleted on the next write.</p>
+
+    <p><strong>Shapes you keep.</strong> If you press "Keep this one," what's saved is the curve or network itself, as coordinates, plus when it was kept. Nothing about who kept it is attached. The gallery holds the newest 800 drawings and 240 pressings; older ones are dropped automatically as new ones come in.</p>
+
+    <p>That's the whole list. Nothing here is sold or shared with anyone.</p>
+
+    <p>Questions: <a href="mailto:contact@0arch.io" class="mono">contact@0arch.io</a></p>
+  </section>
+
+  <footer class="colophon">
+    <div class="masthead__rule" aria-hidden="true"></div>
+    <p><a href="/">Back to No Brief</a></p>
+  </footer>
+
+</div>
+
+</body>
+</html>
